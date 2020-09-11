@@ -1,5 +1,6 @@
 package com.example.bmi2020
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
@@ -19,20 +20,64 @@ class MainActivity : AppCompatActivity() {
                 .setPositiveButton("確認",null)
                 .show()
         }
+        Log.d("BMI2020Test","onCreate")
     }
+
 
     fun bmi (view: View){
         val weight = ed_weight.text.toString().toFloat()
         val height = ed_height.text.toString().toFloat()
         val bmi = weight / (height*height)
         Log.d("BMI",bmi.toString())
-        Toast.makeText(this,bmi.toString(),Toast.LENGTH_LONG).show()
-        AlertDialog.Builder(this)
-            .setTitle("Your BMI")
-            .setMessage(bmi.toString())
-            .setPositiveButton("OK",null)
-            .setNegativeButton("CANCEL",null)
-            .show()
+        Intent(this,ResultActivity::class.java).apply {
+            val bag = Bundle()
+            bag.putFloat(getString(R.string.user_height),height)
+            bag.putFloat(getString(R.string.user_weight),weight)
+            bag.putFloat(getString(R.string.user_bmi),bmi)
+            putExtras(bag)
+            startActivity(this)
+        }
+//        //傳統intent寫法
+//        val intent = Intent(this,ResultActivity::class.java)
+//        startActivity(intent)
+//        //AlertDiaLog Toast 寫法
+//        Toast.makeText(this,bmi.toString(),Toast.LENGTH_LONG).show()
+//        AlertDialog.Builder(this)
+//            .setTitle("Your BMI")
+//            .setMessage(bmi.toString())
+//            .setPositiveButton("OK",null)
+//            .setNegativeButton("CANCEL",null)
+//            .show()
     }
 
+    override fun onStart() {
+        super.onStart()
+        Log.d("BMI2020Test","onStart")
+    }
+
+    override fun onResume() {
+        super.onResume()
+        Log.d("BMI2020Test","onResume")
+    }
+
+    override fun onPause() {
+        super.onPause()
+        Log.d("BMI2020Test","onPause")
+    }
+
+    override fun onStop() {
+        super.onStop()
+        Log.d("BMI2020Test","onStop")
+    }
+
+    override fun onRestart() {
+        super.onRestart()
+        Log.d("BMI2020Test","onRestart")
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        Log.d("BMI2020Test","onDestroy")
+    }
 }
+
